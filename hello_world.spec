@@ -4,7 +4,7 @@ Release: 1%{?dist}
 Summary: Simple Hello World App
 
 License: MIT
-Group: Applications/System
+Group: https://github.com/AndriiVyshnevskyi/WorksDevOps01-.git
 Source0: hello_world.py
 
 %description
@@ -26,3 +26,7 @@ install -m 0755 hello_world.py %{buildroot}/usr/local/bin/hello_world.spec
 %changelog
 * Date Your Name <vishnia>
 - Initial build of hello_world RPM package
+
+
+
+
