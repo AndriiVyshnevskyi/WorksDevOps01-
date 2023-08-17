@@ -18,11 +18,11 @@ This is a simple Hello World app in Python.
 
 %install
 mkdir -p %{buildroot}/usr/local/bin
-install -m 0755 hello_world.py %{buildroot}/usr/local/bin/hello_world
+install -m 0755 hello_world.py %{buildroot}/usr/local/bin/hello_world.spec
 
 %files
-/usr/local/bin/hello_world
+/usr/local/bin/hello_world.spec
 
 %changelog
-* Date Your Name <your.email@example.com>
+* Date Your Name <vishnia>
 - Initial build of hello_world RPM package
