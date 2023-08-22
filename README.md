@@ -1,5 +1,5 @@
-Створення файлу hello_world.py
-Створення модульного тесту: test_hello_world.py
-Створення файлу специфікації RPM: hello_world.spec
-Створення файла для GitHub Actions
+Create file hello_world.py
+Create module test: test_hello_world.py
+Create file specification RPM: hello_world.spec
+Create file for GitHub Actions
 README.md
