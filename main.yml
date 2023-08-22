@@ -1,39 +1,41 @@
 name: CI
 
-on: [push]
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
-
+  build_rpm:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
+      - name: Install rpmbuild
+        run: sudo apt-get install rpm
 
-    - name: Lint with pylint
-      run: |
-        pylint hello_world.py
+      - name: Prepare RPM directory structure
+        run: mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
-    - name: Run unit tests
-      run: |
-        python test_hello_world.py
+      - name: Copy files for RPM packaging
+        run: cp hello_world.py ~/rpmbuild/SOURCES && cp hello_world.spec ~/rpmbuild/SPECS
 
-    - name: Build RPM package
-      run: |
-        # Запустіть rpmbuild з вашим файлом spec тут
+      - name: List dir
+        run: ls ~/rpmbuild/SOURCES && ls ~/rpmbuild/SPECS
 
-    - name: Upload RPM package
-      uses: actions/upload-artifact@v2
-      with:
-        name: hello_world.rpm
-        path: /path/to/your/hello_world.rpm
+      - name: Build RPM package
+        run: rpmbuild -ba ~/rpmbuild/SPECS/hello_world.spec
+
+      - name: Upload RPM package to GitHub Packages
+        uses: actions/upload-artifact@v2
+        with:
+          name: rpm-packages
+          path: ~/rpmbuild/RPMS/noarch
